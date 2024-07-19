@@ -1,25 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+// Script for animations using Animate.css
+const sections = document.querySelectorAll('section');
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const options = {
+    threshold: 0.5
+};
 
-export default App;
+const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('animate__animated', 'animate__fadeInUp');
+        } else {
+            entry.target.classList.remove('animate__animated', 'animate__fadeInUp');
+        }
+    });
+}, options);
+
+sections.forEach(section => {
+    observer.observe(section);
+});
